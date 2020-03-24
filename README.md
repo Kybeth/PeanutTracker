@@ -1,0 +1,2 @@
+# PeanutTracker
+PeanutTracker是一款微信小程序，用于给刷题的朋友们记录打卡
