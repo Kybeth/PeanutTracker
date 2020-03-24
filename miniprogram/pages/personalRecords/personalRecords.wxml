@@ -1,0 +1,57 @@
+<!--pages/personalRecords.wxml-->
+<view class="container">
+
+
+  <view class="userinfo">
+    <view class="userinfo-avatar">
+      <open-data type="userAvatarUrl" ></open-data>
+    </view>
+    <open-data class="userinfo-nickname" type="userNickName"></open-data>
+  </view>
+
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__hd">打卡周期: {{formattedDate}}</view>
+
+    <view class="weui-panel__bd">
+      <!--今天概况-->
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">今天概况</view>
+        <view class="weui-media-box__desc">
+          <!--今天打过卡-->
+          <view wx:if="{{hasCheckinTDA}}">
+            打卡类型：
+            <text style="color: rgb(17, 137, 69)">{{checkinType}}</text> 
+            <view wx:if="{{numToday != 0}}">刷题数：
+              <text style="color: rgb(17, 137, 69)">{{numToday}}</text>
+            </view>
+          </view>
+          <!--今天没打卡-->
+          <view wx:else>
+            <text>今天尚未打卡！</text> 
+            <text wx:if="{{!hasCheckinYDA}}" style="color: red">请务必打卡续命！</text>
+          </view>
+        </view>
+      </view>
+
+      <!--本月概况-->
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">本月概况</view>
+        <view class="weui-media-box__desc">
+          <view class="record-month">
+            本月共打卡 <text style="color: rgb(17, 137, 69)">{{daysMonth}}</text> 天
+            <text>\n</text>
+            刷题数：<text style="color: rgb(17, 137, 69)">{{numMonth}}</text>
+            <text wx:if="{{hasCheckinAllMonth}}" style="color: green">\n本月你到目前为止全勤！</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+
+  <mp-tabbar style="position:fixed;bottom:0;width:100%;left:0;right:0;" list="{{list}}" bindchange="tabChange" current="1"></mp-tabbar>
+    
+
+
+</view>

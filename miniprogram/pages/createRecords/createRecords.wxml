@@ -1,0 +1,118 @@
+<!--index.wxml-->
+<!--todo: 不是数字的反馈toptip，把搜题目统一到form里,-->
+
+<view class="container">
+
+  <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+  <view class="userinfo">
+    <view class="userinfo-avatar">
+      <open-data type="userAvatarUrl" ></open-data>
+    </view>
+    <open-data class="userinfo-nickname" type="userNickName"></open-data>
+  </view>
+
+  <view class="weui-cells__title">{{formattedDate}}</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">打卡类型</view>
+      </view>
+      <view class="weui-cell__bd">
+          <picker bindchange="bindPickerChange" value="{index}}" range="{{typeArray}}">
+              <view class="weui-select weui-select_in-select-after">{{typeArray[index]}}</view>
+          </picker>
+      </view>
+    </view>
+  </view>
+  
+  <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+
+    <mp-cells title="输入leetcode题号" wx:if="{{index == 0}}">
+      <mp-cell class="searchBar">
+        <image slot="icon" src='/static/icons/search.png' style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+        <input  placeholder='eg. 23' data-field="Num" type='number' bindinput="bindKeyInput" bindconfirm='searchLC'></input>
+        <text slot="footer" class="searchText" bindtap='searchLC'>搜索</text>
+      </mp-cell>
+
+      <mp-cell class='searchResult'>
+        <view class='item' bindtap='checkinProb'>
+          <view class='item-inner'>
+            <view>{{probName}}</view>
+          </view>
+        </view>
+        <mp-loading style="margin: 10rpx 0"type="dot-gray" show="{{searchLoading}}"></mp-loading>
+      </mp-cell>
+    </mp-cells>
+
+
+    
+
+
+  </mp-form>
+  <!--try divider-->
+
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="date-section" >
+      <text>打卡周期:</text> 
+      <text class="date-text"> {{formattedDate}}</text>
+    </view>
+
+    <view class="recordType-section">
+      <picker name="picker" bindchange="bindPickerChange" value="{{index}}" range="{{typeArray}}">
+        <view class="picker">
+          打卡类型：
+          <text style="border-bottom: rgb(23, 183, 92) solid 2px; padding: 0px">{{typeArray[index]}}</text>
+          
+        </view>
+      </picker>
+    </view>
+
+    <view class="search-section" wx:if="{{index == 0}}">
+      <view class='search'>
+        <image src='/static/icons/search.png'></image>
+        <input placeholder='输入leetcode题号' type='number' bindinput="bindKeyInput" bindconfirm='searchLC'></input>
+        <text class="searchText" bindtap='searchLC'>搜索</text>
+      </view>
+
+      <view class='searchResult'>
+        <view class='item' bindtap='checkinProb'>
+          <view class='item-inner'>
+            <view>{{probName}}</view>
+          </view>
+        </view>
+        <mp-loading style="margin: 10rpx 0"type="dot-gray" show="{{searchLoading}}"></mp-loading>
+      </view>
+    </view>
+    <view class="recordContent-area" wx:else>
+      <view class="intro-text-1">打卡内容：</view>
+      <textarea name="input" placeholder="{{placeholder}}" placeholder-style="color: #AAAAAA; font-size: 14px" maxlength="-1"></textarea>
+    </view>
+
+
+    <view class="btn-area">
+      <button formType="submit" type="primary"  style="margin: 10rpx">提交</button>
+
+      <button formType="reset" style="margin: 10rpx">重置</button>
+    </view>
+  </form>
+
+
+  <view class="打卡成功反馈" style="text-align: center">
+    <mp-loading style="margin: 10rpx 0"type="circle" show="{{submitLoading}}" tips="提交中"></mp-loading>
+    <block wx:if="{{submitSuccess}}">
+      <icon type="success" size="20"/>
+      <view>您已成功提交【{{typeArray[index]}}卡】</view>
+    </block>
+    <view wx:if="{{submitSuccess && index == 0}}">
+      您已成功提交{{numToday}}题
+    </view>
+  </view>
+
+  
+
+        
+  
+  <mp-tabbar style="position:fixed;bottom:0;width:100%;left:0;right:0;" list="{{list}}" bindchange="tabChange" current="0"></mp-tabbar>
+
+</view>
+

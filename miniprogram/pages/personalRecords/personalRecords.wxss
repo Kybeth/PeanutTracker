@@ -1,0 +1,19 @@
+/* pages/personalRecords.wxss */
+
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  overflow: hidden
+}
+
+.userinfo-nickname {
+  color: rgb(128, 128, 128);
+}

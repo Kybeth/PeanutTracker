@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/createRecords/createRecords",
+    "pages/logs/logs",
+    "pages/personalRecords/personalRecords"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "刷题群打卡",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "个人记录页",
+  "usingComponents": {
+    "mp-tabbar": "../../weui-miniprogram/tabbar/tabbar"
+  }
+}

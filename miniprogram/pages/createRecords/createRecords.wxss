@@ -1,0 +1,105 @@
+/**index.wxss**/
+
+view {
+  margin: 10rpx;
+}
+
+
+text {
+  padding: 5px;
+}
+
+
+textarea {
+  border: #AAAAAA solid 1px;
+  width: 500rpx;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.btn-area{
+  text-align: center; 
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  overflow: hidden
+}
+
+.userinfo-nickname {
+  color: rgb(128, 128, 128);
+}
+
+.search-section {
+  margin: 40rpx 0rpx;
+}
+.search {
+  box-sizing: border-box;
+  border-radius: 50rpx;
+  height: 80rpx;
+  padding: 0 0 0 20rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 28rpx;
+  border: 1px solid #888888;
+}
+
+.search image {
+  height: 36rpx;
+  width: 36rpx;
+  margin-right: 20rpx;
+}
+
+.searchText {
+  
+  padding: 20rpx 30rpx;
+  background: rgb(10, 183, 88);
+  color: #fff;
+  border-radius: 20rpx;
+}
+
+.searchResult {
+  padding: 0rpx 0;
+}
+
+.box .item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  background: #fff;
+  height: 120rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+}
+
+.box .item-inner {
+  width: 80%;
+  font-size: 24rpx;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.box .item-inner text {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 20rpx;
+}
