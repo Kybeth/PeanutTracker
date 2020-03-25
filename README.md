@@ -1,3 +1,4 @@
 # PeanutTracker
 PeanutTracker是一款微信小程序，用于给刷题的朋友们记录打卡
+
 在微信开发者工具里打开本repo可以看到模拟器
