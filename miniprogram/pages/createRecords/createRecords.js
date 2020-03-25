@@ -22,7 +22,11 @@ Page({
     submitSuccess: false,
     submitLoading: false,
     input: null,
-    numToday: 0,
+    numToday: 0, //need a new way to count!!
+    probsToday: [],
+    probConfirmed: false,
+
+
 
     list: [{
       "text": "打卡",
@@ -84,9 +88,17 @@ Page({
   },
 
   // 点击搜索出的题目后打卡
-  checkinAProbC(e) {
+  confirmProb(e) {
     console.log('点击了题目: ', this.data.probNum)
-    //打卡
+    let probsArr = this.data.probsToday
+    probsArr.push(this.data.probName)
+    this.setData({
+      probsToday: probsArr
+    })
+    console.log('probToday: ', this.data.probsToday)
+    this.setData({
+      probName: ''
+    })
   },
 
 

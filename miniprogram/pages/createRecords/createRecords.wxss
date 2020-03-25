@@ -96,10 +96,3 @@ textarea {
   justify-content: space-around;
 }
 
-.box .item-inner text {
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding-left: 20rpx;
-}
