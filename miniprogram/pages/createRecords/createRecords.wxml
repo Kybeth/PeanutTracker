@@ -28,45 +28,34 @@
   <mp-form id="form" rules="{{rules}}" models="{{formData}}">
 
     <mp-cells title="请输入要打卡的leetcode题号" wx:if="{{index == 0}}">
-      <mp-cell class="searchBar">
-        <image slot="icon" src='/static/icons/search.png' style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+      <mp-cell ext-class="searchBar">
+        <image slot="icon" src='/static/icons/search.png' style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px"></image>
         <input  placeholder='eg. 23' data-field="Num" type='number' bindinput="bindKeyInput" bindconfirm='searchLC'></input>
-        <text slot="footer" class="searchText" bindtap='searchLC'>搜索</text>
+        <text slot="footer" class="searchBtn" bindtap='searchLC'>搜索</text>
       </mp-cell>
-
-      <mp-cell class='searchResult' wx:if="{{probName != ''}}">
-        <view class='item' bindtap='confirmProb'>
-            <view>{{probName}}</view>
-        </view>
-        <mp-loading style="margin: 10rpx 0"type="dot-gray" show="{{searchLoading}}"></mp-loading>
-      </mp-cell>
-
-      
-      <block wx:for="{{probsToday}}">
-        <mp-cell >
-          待打卡：{{item}}
-        </mp-cell>
-      </block>
-      
-      
     </mp-cells>
 
 
+    <mp-loading style="margin: 10rpx 0"type="dot-gray" show="{{searching}}"></mp-loading>
+
+
+    <view class='searchResult' wx:if="{{probName != ''}}" bindtap='confirmProb'>
+        <view>{{probName}}</view>
+    </view>
+
+
+    <view class="toBeSubmitted" wx:if="{{probsToday != ''}}">
+      <view class="item" wx:for="{{probsToday}}">待打卡：{{item}}</view>
+    </view>
     
-    <view class="recordContent-area" wx:else>
+    <view class="recordContent-area" wx:if="{{index != 0}}">
       <view class="intro-text-1">打卡内容：</view>
       <textarea name="input" placeholder="{{placeholder}}" placeholder-style="color: #AAAAAA; font-size: 14px" maxlength="-1"></textarea>
     </view>
-
   </mp-form>
   <!--try divider-->
 
   <form bindsubmit="formSubmit" bindreset="formReset">
-   
-    
-    
-
-
     <view class="btn-area">
       <button formType="submit" type="primary"  style="margin: 10rpx">提交</button>
 

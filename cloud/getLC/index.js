@@ -13,7 +13,7 @@ exports.main = async (event, context) => {
   console.log(event)
 
   try {
-    const res = await db.collection('lc_imported')
+    const res = await db.collection('LeetCode')
     .where({'stat.frontend_question_id': num})
     .get()
 

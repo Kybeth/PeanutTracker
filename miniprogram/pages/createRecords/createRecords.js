@@ -39,7 +39,7 @@ Page({
       "selectedIconPath": "/static/icons/user_green.png",
   }],
 
-    searchLoading: false,
+    searching: false,
     probNum: '',
     probName: ''
 
@@ -65,7 +65,7 @@ Page({
     console.log('点击了search: ', this.data.probNum)
     this.setData({
       probName: '',
-      searchLoading: true
+      searching: true
     })
     let that = this
     // 查询leetcode题库
@@ -78,7 +78,7 @@ Page({
         console.log("通过云函数获取leetcode成功：", res.result)
         that.setData({
           probName: res.result,
-          searchLoading: false
+          searching: false
         })
       },
       fail(res) {
