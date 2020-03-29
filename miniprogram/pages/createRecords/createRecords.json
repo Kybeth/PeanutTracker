@@ -7,7 +7,7 @@
     "mp-toptips": "../../weui-miniprogram/toptips/toptips",
     "mp-cells": "../../weui-miniprogram/cells/cells",
     "mp-cell": "../../weui-miniprogram/cell/cell",
-    "mp-form": "../../weui-miniprogram/form/form"
-  
+    "mp-form": "../../weui-miniprogram/form/form",
+    "mp-slideview": "../../weui-miniprogram/slideview/slideview"
   }
 }

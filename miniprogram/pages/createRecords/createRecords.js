@@ -22,12 +22,17 @@ Page({
     submitSuccess: false,
     submitLoading: false,
     input: null,
+    
+
+    // Search 
+    searching: false,
+    probNum: '',
+    probName: '',
     numToday: 0, //need a new way to count!!
     probsToday: [],
     probConfirmed: false,
 
-
-
+    // UI 相关
     list: [{
       "text": "打卡",
       "iconPath": "/static/icons/edit_black.png",
@@ -38,11 +43,11 @@ Page({
       "iconPath": "/static/icons/user_black.png",
       "selectedIconPath": "/static/icons/user_green.png",
   }],
-
-    searching: false,
-    probNum: '',
-    probName: ''
-
+    slideButtons: [{
+      type: 'warn',
+      text: '删除',
+      src: '/static/icons/trash.png', // icon的路径
+    }],
   },
 
   // 点击tabbar的动作
@@ -87,7 +92,7 @@ Page({
     })
   },
 
-  // 点击搜索出的题目后打卡
+  // 点击搜索出的题目后，移动入待提交区
   confirmProb(e) {
     console.log('点击了题目: ', this.data.probNum)
     let probsArr = this.data.probsToday
@@ -101,6 +106,18 @@ Page({
     })
   },
 
+  // 选择标签
+  selectItem(e) {
+    console.log('slide button tap', e.detail)
+
+},
+  // 点击滑动标签
+  slideButtonTap(e) {
+    console.log('slide button tap', e.detail)
+    this.setData({
+      probName: ''
+    })
+},
 
   onLoad: function () {
     wx.stopPullDownRefresh() //刷新完成后停止下拉刷新动效
@@ -129,7 +146,6 @@ Page({
     }
 
   },
-
 
   onPullDownRefresh() {
     //this.onLoad(); //重新加载onLoad()
@@ -161,6 +177,8 @@ Page({
     this.setData({
       submitLoading: true
     })
+    let num = this.data.probsToday.length;
+    let content = this.data.probsToday; //e.detail.value.input
     checkinDB.add({
       data: {
         createTime: db.serverDate(),
@@ -171,8 +189,8 @@ Page({
           full: this.data.tda
         },
         type: this.data.typeArray[e.detail.value.picker],
-        num: this.data.numToday,
-        content: e.detail.value.input
+        num: num,
+        content: content
       },
     })
     .then(res => {

@@ -11,8 +11,8 @@
     <open-data class="userinfo-nickname" type="userNickName"></open-data>
   </view>
 
-  <view class="weui-cells__title">{{formattedDate}}</view>
-  <view class="weui-cells weui-cells_after-title">
+  <view class="time-section">打卡周期: {{formattedDate}}</view>
+  
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
           <view class="weui-label">打卡类型：</view>
@@ -23,37 +23,47 @@
           </picker>
       </view>
     </view>
-  </view>
+ 
   
-  <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+  <mp-form id="form" rules="{{rules}}" models="{{formData}}"> <!--这里可添加规则-->
+    <!--做题卡section-->
+    <view wx:if="{{index == 0}}">
+      <!--Search Bar-->
+      <mp-cells title="请输入要打卡的leetcode题号" >
+        <mp-cell ext-class="searchBar">
+          <image slot="icon" src='/static/icons/search.png' style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px"></image>
+          <input  placeholder='eg. 23' data-field="Num" type='number' bindinput="bindKeyInput" bindconfirm='searchLC'></input>
+          <text slot="footer" class="searchBtn" bindtap='searchLC'>搜索</text>
+        </mp-cell>
+      </mp-cells>
 
-    <mp-cells title="请输入要打卡的leetcode题号" wx:if="{{index == 0}}">
-      <mp-cell ext-class="searchBar">
-        <image slot="icon" src='/static/icons/search.png' style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px"></image>
-        <input  placeholder='eg. 23' data-field="Num" type='number' bindinput="bindKeyInput" bindconfirm='searchLC'></input>
-        <text slot="footer" class="searchBtn" bindtap='searchLC'>搜索</text>
-      </mp-cell>
-    </mp-cells>
+      <!--Loading Indicator-->
+      <mp-loading style="margin: 10rpx 0"type="dot-gray" show="{{searching}}"></mp-loading>
 
+      <!--Search Result-->
+      <view class="searchResult" wx:if="{{probName != ''}}">
+        <mp-slideview ext-class='searchResult-inner' bindtap='confirmProb' buttons="{{slideButtons}}"
+  bindbuttontap="slideButtonTap">{{probName}}</mp-slideview>
+      </view>
 
-    <mp-loading style="margin: 10rpx 0"type="dot-gray" show="{{searching}}"></mp-loading>
-
-
-    <view class='searchResult' wx:if="{{probName != ''}}" bindtap='confirmProb'>
-        <view>{{probName}}</view>
-    </view>
-
-
-    <view class="toBeSubmitted" wx:if="{{probsToday != ''}}">
-      <view class="item" wx:for="{{probsToday}}">待打卡：{{item}}</view>
+      <!--To Be Submitted-->
+      <view wx:if="{{probsToday != ''}}">
+        <view class="item-hd"> <text>已选择题目</text> </view> 
+        <view class="toBeSubmitted" >
+          <view class="item-box" wx:for="{{probsToday}}">
+            {{item}}
+          </view>
+        </view>
+      </view>
     </view>
     
+
     <view class="recordContent-area" wx:if="{{index != 0}}">
       <view class="intro-text-1">打卡内容：</view>
       <textarea name="input" placeholder="{{placeholder}}" placeholder-style="color: #AAAAAA; font-size: 14px" maxlength="-1"></textarea>
     </view>
   </mp-form>
-  <!--try divider-->
+  
 
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="btn-area">
@@ -74,10 +84,6 @@
       您已成功提交{{numToday}}题
     </view>
   </view>
-
-  
-
-        
   
   <mp-tabbar style="position:fixed;bottom:0;width:100%;left:0;right:0;" list="{{list}}" bindchange="tabChange" current="0"></mp-tabbar>
 

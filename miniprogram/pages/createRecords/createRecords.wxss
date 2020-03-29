@@ -5,16 +5,17 @@ view {
 }
 
 
-text {
-  padding: 5px;
-}
-
-
 textarea {
   border: #AAAAAA solid 1px;
   width: 500rpx;
   padding: 10px;
   border-radius: 5px;
+}
+
+.time-section {
+  padding: 10rpx;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .btn-area{
@@ -45,19 +46,6 @@ textarea {
 .search-section {
   margin: 40rpx 0rpx;
 }
-.search {
-  box-sizing: border-box;
-  border-radius: 50rpx;
-  height: 80rpx;
-  padding: 0 0 0 20rpx;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 28rpx;
-  border: 1px solid #888888;
-}
-
 
 
 .searchBar {
@@ -73,37 +61,47 @@ textarea {
 }
 
 .searchResult {
-  padding: 10rpx 10rpx;
-  border-left: solid 5px rgb(10, 183, 88);
-  border-right: solid 5px rgb(10, 183, 88);
+  margin: 30rpx;
+  padding: 0rpx 10rpx;
+  border-left: solid 5px #FFBE00;
   border-radius: 5px;
 }
 
-.toBeSubmitted {
-  padding: 10rpx 10rpx;
-  border-top: solid 3px rgb(10, 183, 88);
-  border-bottom: solid 3px rgb(10, 183, 88);
-  border-radius: 3px;
-
+.searchResult-inner{
+  margin: 0rpx;
+  padding: 0rpx;
 }
 
-.box .item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  background: #fff;
-  height: 120rpx;
-  box-sizing: border-box;
-  margin-bottom: 20rpx;
-}
-
-.box .item-inner {
-  width: 80%;
-  font-size: 24rpx;
-  color: #555;
+.item-hd {
+  text-align: center; 
+  padding: 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  align-items: center;
+  
 }
+
+.item-hd text{
+  color: #AAAAAA;
+  font-size: 14px;
+  padding: 0;
+}
+
+.toBeSubmitted {
+  margin: 20rpx;
+  padding: 10rpx 10rpx;
+  border-left: solid 5px #47c981;
+  border-radius: 5px;
+}
+
+.item-box {
+  border-bottom: solid 1px #f2f3f2;
+  margin: 0;
+  padding: 10rpx;
+}
+
+
+
+
+
 
