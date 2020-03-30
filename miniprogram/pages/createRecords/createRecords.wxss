@@ -61,7 +61,7 @@ textarea {
 }
 
 .searchResult {
-  margin: 30rpx;
+  margin: 20rpx;
   padding: 0rpx 10rpx;
   border-left: solid 5px #FFBE00;
   border-radius: 5px;
@@ -73,6 +73,7 @@ textarea {
 }
 
 .item-hd {
+  margin: 30rpx 0rpx 0rpx 0rpx;
   text-align: center; 
   padding: 0px;
   display: flex;

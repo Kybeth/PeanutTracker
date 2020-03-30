@@ -9,9 +9,9 @@ const checkinDB = db.collection("checkin")
 Page({
   data: {
 
-    error: false,
+    msg: '',
 
-    index: 0,
+    pickerIndex: 0,
     typeArray: ['做题', '讲题', '其他'],    
     placeholderArray: ["eg. lc1 Two Sum, lc200 Number of Islands (题目之间请用英文,分隔)", "eg. 今天给大家讲了lc1和Java的garbage collection", "今天做了亚麻oa/今天学了九章ood/今天准备了5个bq故事"],
     placeholder: "eg. lc1 Two Sum, lc200 Number of Islands (题目之间请用英文,分隔)",
@@ -28,7 +28,7 @@ Page({
     searching: false,
     probNum: '',
     probName: '',
-    numToday: 0, //need a new way to count!!
+    numSubmit: 0, //need a new way to count!!
     probsToday: [],
     probConfirmed: false,
 
@@ -60,10 +60,9 @@ Page({
 
   // 我的search 行为
   bindKeyInput(e) {
-    console.log('input: ', e)
+    console.log('seachBar input: ', e)
     this.setData({
       probNum: e.detail.value,
-      
     })
   },
   searchLC(e) {
@@ -106,11 +105,6 @@ Page({
     })
   },
 
-  // 选择标签
-  selectItem(e) {
-    console.log('slide button tap', e.detail)
-
-},
   // 点击滑动标签
   slideButtonTap(e) {
     console.log('slide button tap', e.detail)
@@ -118,6 +112,15 @@ Page({
       probName: ''
     })
 },
+
+  // textarea里进行输入
+  bindTextarea(e) {
+    console.log('Textarea: ', e.detail.value)
+    this.setData({
+      input: e.detail.value
+    })
+  },
+
 
   onLoad: function () {
     wx.stopPullDownRefresh() //刷新完成后停止下拉刷新动效
@@ -156,7 +159,7 @@ Page({
   bindPickerChange: function (e) {
     console.log('picker选择改变')
     this.setData({
-      index: e.detail.value,
+      pickerIndex: e.detail.value,
       placeholder: this.data.placeholderArray[e.detail.value],
       submitSuccess: false
     })
@@ -165,11 +168,14 @@ Page({
   /* 提交表单 */
   formSubmit: function (e) {
     console.log('form发生了submit事件')
-    
-    if (e.detail.value.picker == 0) 
-      this.setData({
-        numToday: e.detail.value.input.split(",").length
-      })
+    let num = 0
+    let content = ''
+    if (this.data.pickerIndex == 0) {
+      num = this.data.probsToday.length
+      content = this.data.probsToday; //e.detail.value.input
+    } else {
+      content = this.data.input
+    }
 
     /* 更新checkinDB */
     // 目前未对打卡进行限制，所有人都能打卡
@@ -177,8 +183,6 @@ Page({
     this.setData({
       submitLoading: true
     })
-    let num = this.data.probsToday.length;
-    let content = this.data.probsToday; //e.detail.value.input
     checkinDB.add({
       data: {
         createTime: db.serverDate(),
@@ -188,7 +192,7 @@ Page({
           date: this.data.tda.getDate(),
           full: this.data.tda
         },
-        type: this.data.typeArray[e.detail.value.picker],
+        type: this.data.typeArray[this.data.pickerIndex],
         num: num,
         content: content
       },
@@ -197,21 +201,13 @@ Page({
       console.log("checkinDB add success", res)
       this.setData({
         submitLoading: false,
-        submitSuccess: true
+        submitSuccess: true,
+        numSubmit: num
       })
     })
     .catch(console.error)
 
   }, // end of formSubmit
 
-  // 选择reset
-  formReset: function () {
-    console.log('form发生了reset事件')
-    this.setData({
-      index: 0,
-      placeholder: this.data.placeholderArray[0],
-      submitSuccess: false,
-      numToday: 0
-    })
-  },
+
 })

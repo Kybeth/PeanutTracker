@@ -3,7 +3,7 @@
 
 <view class="container">
 
-  <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+  <mp-toptips msg="您已成功提交【{{typeArray[pickerIndex]}}卡】" type="success" show="{{submitSuccess}}"></mp-toptips>
   <view class="userinfo">
     <view class="userinfo-avatar">
       <open-data type="userAvatarUrl" ></open-data>
@@ -18,8 +18,8 @@
           <view class="weui-label">打卡类型：</view>
       </view>
       <view class="weui-cell__bd">
-          <picker bindchange="bindPickerChange" value="{index}}" range="{{typeArray}}">
-              <view class="weui-select weui-select_in-select-after">{{typeArray[index]}}</view>
+          <picker bindchange="bindPickerChange" value="{pickerIndex}}" range="{{typeArray}}">
+              <view class="weui-select weui-select_in-select-after">{{typeArray[pickerIndex]}}</view>
           </picker>
       </view>
     </view>
@@ -27,7 +27,7 @@
   
   <mp-form id="form" rules="{{rules}}" models="{{formData}}"> <!--这里可添加规则-->
     <!--做题卡section-->
-    <view wx:if="{{index == 0}}">
+    <view wx:if="{{pickerIndex == 0}}">
       <!--Search Bar-->
       <mp-cells title="请输入要打卡的leetcode题号" >
         <mp-cell ext-class="searchBar">
@@ -41,10 +41,14 @@
       <mp-loading style="margin: 10rpx 0"type="dot-gray" show="{{searching}}"></mp-loading>
 
       <!--Search Result-->
-      <view class="searchResult" wx:if="{{probName != ''}}">
-        <mp-slideview ext-class='searchResult-inner' bindtap='confirmProb' buttons="{{slideButtons}}"
-  bindbuttontap="slideButtonTap">{{probName}}</mp-slideview>
+      <view wx:if="{{probName != ''}}">
+        <view class="item-hd"> <text>点击以确认，左滑以删除</text> </view> 
+        <view class="searchResult">
+          <mp-slideview ext-class='searchResult-inner' bindtap='confirmProb' buttons="{{slideButtons}}"
+    bindbuttontap="slideButtonTap">{{probName}}</mp-slideview>
+        </view>     
       </view>
+      
 
       <!--To Be Submitted-->
       <view wx:if="{{probsToday != ''}}">
@@ -54,35 +58,20 @@
             {{item}}
           </view>
         </view>
+        <view class="item-hd"> <text>选择完你想打卡的题目后请点击“提交”</text> </view> 
       </view>
     </view>
     
 
-    <view class="recordContent-area" wx:if="{{index != 0}}">
+    <view class="recordContent-area" wx:if="{{pickerIndex != 0}}">
       <view class="intro-text-1">打卡内容：</view>
-      <textarea name="input" placeholder="{{placeholder}}" placeholder-style="color: #AAAAAA; font-size: 14px" maxlength="-1"></textarea>
+      <textarea bindinput='bindTextarea' bindconfirm='confirmTextarea' placeholder="{{placeholder}}" placeholder-style="color: #AAAAAA; font-size: 14px" maxlength="250"></textarea>
     </view>
   </mp-form>
-  
 
-  <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="btn-area">
-      <button formType="submit" type="primary"  style="margin: 10rpx">提交</button>
-
-      <button formType="reset" style="margin: 10rpx">重置</button>
-    </view>
-  </form>
-
-
-  <view class="打卡成功反馈" style="text-align: center">
-    <mp-loading style="margin: 10rpx 0"type="circle" show="{{submitLoading}}" tips="提交中"></mp-loading>
-    <block wx:if="{{submitSuccess}}">
-      <icon type="success" size="20"/>
-      <view>您已成功提交【{{typeArray[index]}}卡】</view>
-    </block>
-    <view wx:if="{{submitSuccess && index == 0}}">
-      您已成功提交{{numToday}}题
-    </view>
+  <view class="weui-btn-area">
+    <mp-loading style="margin: 0rpx"type="circle" show="{{submitLoading}}" tips="提交中"></mp-loading>
+    <button class="weui-btn" type="primary" bindtap="formSubmit">提交</button>
   </view>
   
   <mp-tabbar style="position:fixed;bottom:0;width:100%;left:0;right:0;" list="{{list}}" bindchange="tabChange" current="0"></mp-tabbar>
