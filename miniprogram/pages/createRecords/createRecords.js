@@ -209,5 +209,12 @@ Page({
 
   }, // end of formSubmit
 
-
+  onShareAppMessage: function () {
+    // return custom share data when user share.
+    return {
+      title: '今 天 你 打 卡 了 吗',
+      path: 'pages/createRecords/createRecords',
+      imageUrl: '/static/pics/peanut5_4.jpeg'
+    }
+  },
 })

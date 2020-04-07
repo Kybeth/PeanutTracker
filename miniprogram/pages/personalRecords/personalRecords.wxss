@@ -17,3 +17,7 @@
 .userinfo-nickname {
   color: rgb(128, 128, 128);
 }
+
+.feedback {
+  margin: 50rpx;
+}
