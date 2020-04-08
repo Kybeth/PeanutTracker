@@ -27,9 +27,9 @@ Page({
     // Search 
     searching: false,
     probNum: '',
-    probName: '',
+
     numSubmit: 0, //need a new way to count!!
-    probsToday: [],
+    probList: [], // id:1; name: lc1 2sum; difficulty: easy;
     probConfirmed: false,
 
     // UI 相关
@@ -58,17 +58,18 @@ Page({
     })
   },
 
-  // 我的search 行为
+  // 搜索框search 行为
   bindKeyInput(e) {
     console.log('seachBar input: ', e)
     this.setData({
       probNum: e.detail.value,
     })
   },
+  // 搜索结果放入probList里，在toBeSubmitted区域显示出来
   searchLC(e) {
-    console.log('点击了search: ', this.data.probNum)
+    console.log('点击了search，搜索这个题号: ', this.data.probNum)
     this.setData({
-      probName: '',
+
       searching: true
     })
     let that = this
@@ -80,37 +81,31 @@ Page({
       },
       success(res) {
         console.log("通过云函数获取leetcode成功：", res.result)
+        let len = that.data.probList.length
+        that.data.probList = [{id: '_' + len, name: res.result}].concat(that.data.probList)
         that.setData({
-          probName: res.result,
-          searching: false
+          searching: false,
+          probList: that.data.probList
         })
       },
       fail(res) {
-        console.log("通过云函数获取leetcode失败")
+        console.log("通过云函数获取leetcode失败", res)
       }
     })
   },
 
-  // 点击搜索出的题目后，移动入待提交区
-  confirmProb(e) {
-    console.log('点击了题目: ', this.data.probNum)
-    let probsArr = this.data.probsToday
-    probsArr.push(this.data.probName)
+  // 点击“删除”
+  deleteItem(e) {
+    console.log('点击了删除键',e)
+    //let probList = this.data.probList
+    let id = e.currentTarget.id
+    let probList = this.data.probList.filter(item => item.id != id)
+    // probList.splice(probId, 1)
     this.setData({
-      probsToday: probsArr
+      probList
     })
-    console.log('probToday: ', this.data.probsToday)
-    this.setData({
-      probName: ''
-    })
-  },
+    console.log("删除了之后list现为：", this.data.probList)
 
-  // 点击滑动标签
-  slideButtonTap(e) {
-    console.log('slide button tap', e.detail)
-    this.setData({
-      probName: ''
-    })
 },
 
   // textarea里进行输入
@@ -120,7 +115,6 @@ Page({
       input: e.detail.value
     })
   },
-
 
   onLoad: function () {
     wx.stopPullDownRefresh() //刷新完成后停止下拉刷新动效
@@ -171,11 +165,12 @@ Page({
     let num = 0
     let content = ''
     if (this.data.pickerIndex == 0) {
-      num = this.data.probsToday.length
-      content = this.data.probsToday; //e.detail.value.input
+      num = this.data.probList.length
+      content = this.data.probList.map(item => item.name)
     } else {
       content = this.data.input
     }
+    console.log("即将提交入数据库的内容：", content)
 
     /* 更新checkinDB */
     // 目前未对打卡进行限制，所有人都能打卡
