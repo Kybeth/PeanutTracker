@@ -5,7 +5,49 @@ view {
 }
 
 
-textarea {
+.noExistPrompt {
+  margin: 30rpx 20rpx 20rpx 20rpx;
+  text-align: center; 
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noExistPrompt text{
+  margin: 0rpx;
+  color: #4D4D4D;
+  font-size: 15px;
+  padding: 0;
+
+}
+
+.btns{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.inputArea-wrap {
+  margin: 10rpx 20rpx 20rpx 20rpx;
+  text-align: center; 
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputArea {
+  border: #AAAAAA solid 1px;
+  height: 4.3em;
+  width: 500rpx;
+  padding: 10px;
+  border-radius: 5px;
+
+  font-size: 15px
+}
+
+.inputArea2 {
   border: #AAAAAA solid 1px;
   width: 500rpx;
   padding: 10px;
@@ -57,7 +99,7 @@ textarea {
   padding: 15rpx 30rpx;
   background: rgb(10, 183, 88);
   color: #fff;
-  border-radius: 20rpx;
+  border-radius: 10rpx;
 }
 
 .toBeSubmitted {
@@ -80,8 +122,8 @@ textarea {
 }
 
 .items-hd text{
-  color: #AAAAAA;
-  font-size: 14px;
+  color: #4D4D4D;
+  font-size: 15px;
   padding: 0;
 }
 

@@ -31,6 +31,9 @@ Page({
     numSubmit: 0, //need a new way to count!!
     probList: [], // id:1; name: lc1 2sum; difficulty: easy;
     probConfirmed: false,
+    manualInputPrompt: false,
+    manualInput: false,
+    manualProbs: "",
 
     // UI 相关
     list: [{
@@ -81,16 +84,69 @@ Page({
       },
       success(res) {
         console.log("通过云函数获取leetcode成功：", res.result)
-        let len = that.data.probList.length
-        that.data.probList = [{id: '_' + len, name: res.result}].concat(that.data.probList)
-        that.setData({
-          searching: false,
-          probList: that.data.probList
-        })
+        if (res.result == "not exist!") {
+          console.log("该题目数据库里没有")
+          that.setData({
+            searching: false,
+            manualInputPrompt: true
+          })
+        } else {
+          // add a new item to list
+          let len = that.data.probList.length
+          that.data.probList = [{id: '_' + len, name: res.result}].concat(that.data.probList)
+          that.setData({
+            searching: false,
+            probList: that.data.probList
+          })
+        }
+        
       },
       fail(res) {
         console.log("通过云函数获取leetcode失败", res)
       }
+    })
+  },
+  // 显示手动输入框
+  getManualInputBox(e) {
+    this.setData({
+      manualInputPrompt: false,
+      manualInput: true,
+    })
+  },
+  // 手输过程
+  bindTextarea1(e) {
+    console.log('seachBar input: ', e)
+    this.setData({
+      manualProbs: e.detail.value,
+    })
+  },
+  // 手输完成,parse题目
+  parseManualInput(e) {
+    let manualArr = this.data.manualProbs.split(',')
+
+    // add a new item to list
+    manualArr.forEach(prob => {
+      let len = this.data.probList.length
+      this.data.probList = [{id: '_' + len, name: prob}].concat(this.data.probList)
+    })
+    this.setData({
+      manualInput: false,
+      probList: this.data.probList
+    })
+
+  },
+
+  // 手输取消
+  cancelManualInputBox(e) {
+    this.setData({
+      manualInput: false,
+    })
+  },
+
+  // 不显示手动输入框，回到默认状态
+  backToAutoInput(e) {
+    this.setData({
+      manualInputPrompt: false,
     })
   },
 
@@ -173,7 +229,6 @@ Page({
     console.log("即将提交入数据库的内容：", content)
 
     /* 更新checkinDB */
-    // 目前未对打卡进行限制，所有人都能打卡
     console.log('存入数据库前：', this.data.tda)
     this.setData({
       submitLoading: true

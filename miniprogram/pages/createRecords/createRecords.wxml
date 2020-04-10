@@ -41,9 +41,34 @@
       <!--Loading Indicator-->
       <mp-loading style="margin: 10rpx 0"type="dot-gray" show="{{searching}}"></mp-loading>
 
-      <!--New Search Result Section-->
+      <!--Input prompt-->
+      <view wx:if="{{manualInputPrompt}}">
+        <view class="noExistPrompt"><text>数据库还没有收录这道题！只好手动输入啦</text> </view>
+        
+        <view class="btns">
+          <button size="mini" type="primary" plain="true" bindtap="getManualInputBox">输入</button>
+          <button size="mini" plain="true"  bindtap="backToAutoInput">取消</button>
+        </view>
+      </view>
+
+      <!--Input box-->
+      <view wx:if="{{manualInput}}">
+        <view class="items-hd"> <text>如果输入多道题，中间请用英文逗号','分隔</text> </view> 
+
+        <view class="inputArea-wrap">
+          <textarea class="inputArea" bindinput="bindTextarea1" bindconfirm='parseInput' placeholder="eg. lc1382. Balance a Binary Search Tree" placeholder-style="color: #AAAAAA; font-size: 15px" maxlength="250"/>
+        </view>
+        
+
+        <view class="btns">
+          <button size="mini" type="primary" plain="true" bindtap="parseManualInput">完成</button>
+          <button size="mini" plain="true" bindtap="cancelManualInputBox">取消</button>
+        </view>
+      </view>
+
+      <!--Search Result Section-->
       <view wx:if="{{probList != ''}}" class="toBeSubmitted">
-        <view class="items-hd"> <text>左滑可删除，选择完请点击“提交”</text> </view> 
+        <view class="items-hd" > <text style="margin-top: 30rpx">左滑可删除，选择完请点击“打卡”</text> </view> 
 
         <view class="items-wrap">
           <mp-slideview wx:for="{{probList}}" wx:key="id" ext-class='item-inner' bindtap='confirmProb' buttons="{{slideButtons}}"
@@ -53,16 +78,16 @@
 
     </view>
     
-
+    <!--非做题卡section-->
     <view class="recordContent-area" wx:if="{{pickerIndex != 0}}">
       <view class="intro-text-1">打卡内容：</view>
-      <textarea bindinput='bindTextarea' bindconfirm='confirmTextarea' placeholder="{{placeholder}}" placeholder-style="color: #AAAAAA; font-size: 14px" maxlength="250"></textarea>
+      <textarea class="inputArea2" bindinput='bindTextarea' bindconfirm='confirmTextarea' placeholder="{{placeholder}}" placeholder-style="color: #AAAAAA; font-size: 14px" maxlength="250"></textarea>
     </view>
   </mp-form>
 
   <view class="weui-btn-area">
     <mp-loading style="margin: 0rpx"type="circle" show="{{submitLoading}}" tips="提交中"></mp-loading>
-    <button class="weui-btn" type="primary" bindtap="formSubmit">提交</button>
+    <button class="weui-btn" type="primary" bindtap="formSubmit">打卡</button>
   </view>
   
   <mp-tabbar style="position:fixed;bottom:0;width:100%;left:0;right:0;" list="{{list}}" bindchange="tabChange" current="0"></mp-tabbar>
