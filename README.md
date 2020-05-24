@@ -1,16 +1,16 @@
 # Peanut Tracker
 
-## Introduction
+## What's it?
 PeanutTracker is a WeChat Mini Program, helping users to track their LeetCode progress (or other practices from other algorithm platforms).
 
 WeChat Developer Tools is recommended to run this program, which provides an emulator to emulate what the program looks like on a mobile screen.
 
-## Download
+## How to download?
 Please search in WeChat Mini Program Store or scan this code using your WeChat:
 
 ![QR Code for Peanut Tracker](https://i.imgur.com/AsKcHen.jpg)
 
-## Features
+## What can I use it for?
 
 - record today's progress in three categories: practicing algorithm problems, discussing problems with others, other kind.
 
@@ -18,7 +18,7 @@ Please search in WeChat Mini Program Store or scan this code using your WeChat:
 
 - view record for today and for this month
 
-## Image Overview
+## What does it look like?
 
 - record today's progress: practicing algorithm problems, user can choose from LeetCode problems
 
